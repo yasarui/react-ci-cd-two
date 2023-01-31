@@ -37,9 +37,13 @@ jobs:
       - run:
           command: npm run lint
 workflows:
-  on_commit:
+  build_and_test:
     jobs:
       - build
+          filters:
+            branches:
+              only:
+                - main
       - test:
           requires:
             - build
