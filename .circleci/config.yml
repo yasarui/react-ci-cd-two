@@ -12,39 +12,29 @@ jobs:
           pkg-manager: npm
       - run:
           command: npm run build
-          name: Build app
       - persist_to_workspace:
           root: ~/project
-          paths:
-            - .
+          paths: - .
   test:
     docker:
       - image: cimg/node:17.2.0
     steps:
+      - attach_workspace:
+          at: .
       - checkout
-      - node/install-packages:
-          pkg-manager: npm
       - run:
           command: npm run test
-          name: Test app
       - persist_to_workspace:
           root: ~/project
-          paths:
-            - .
+          paths: - .
   eslint:
     docker:
       - image: cimg/node:17.2.0
     steps:
+      - attach_workspace:
+          at: .
       - checkout
-      - node/install-packages:
-          pkg-manager: npm
-      - run:
-          command: npm run lint
-          name: Lint app
-      - persist_to_workspace:
-          root: ~/project
-          paths:
-            - .
+      - run: command: npm run lint
 workflows:
   on_commit:
     jobs:
