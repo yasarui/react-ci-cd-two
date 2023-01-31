@@ -14,7 +14,8 @@ jobs:
           command: npm run build
       - persist_to_workspace:
           root: ~/project
-          paths: - .
+          paths:
+            - .
   test:
     docker:
       - image: cimg/node:17.2.0
@@ -26,7 +27,8 @@ jobs:
           command: npm run test
       - persist_to_workspace:
           root: ~/project
-          paths: - .
+          paths:
+            - .
   eslint:
     docker:
       - image: cimg/node:17.2.0
@@ -34,7 +36,8 @@ jobs:
       - attach_workspace:
           at: .
       - checkout
-      - run: command: npm run lint
+      - run:
+          command: npm run lint
 workflows:
   on_commit:
     jobs:
